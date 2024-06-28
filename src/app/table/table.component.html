@@ -1,0 +1,33 @@
+<table width="100%">
+  <tr>
+      <td width="500">
+        <img src="assets/img/logo-premec-01.png" width="490" />
+      </td>
+      <td align="center" style="font-size: xx-large;">
+        MONITOR DE ACTIVIDADES
+      </td>
+  </tr>
+</table>
+
+<br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Actividad</th>
+      <th>Empleado</th>
+      <th>Cliente</th>
+      <th>Tarea</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{ item.numero }}</td>
+      <td>{{ item.empleado }}</td>
+      <td>{{ item.cliente }}</td>
+      <td>{{ item.tareasARealizar }}</td>
+      <td>{{ item.estado }}</td>
+    </tr>
+  </tbody>
+</table>

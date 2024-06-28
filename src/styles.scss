@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+background-color: #fff;
+}
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+background-color: #eee;
+}
+.table-striped>thead>tr>th {
+    background-color: #ccc;
+}

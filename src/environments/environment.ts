@@ -2,7 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-//export const PREFIX_DOMAIN_API =  'http://premec.ddns.net:48080/ws-rest/';
+// export const PREFIX_DOMAIN_API =  'http://premec.ddns.net:48080/ws-rest/';
 export const PREFIX_DOMAIN_API =  'http://localhost:8080/ws-rest/';
 
 export const environment = {

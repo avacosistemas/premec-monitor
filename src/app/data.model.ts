@@ -4,6 +4,7 @@ export interface Item {
     cliente: string;
     tareasARealizar: string;
     estado: string;
+    skip: string;
   }
 
 export interface ResponseData {

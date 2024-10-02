@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of items" [ngClass]="{ 'rowfinalizada': item.estado == 'Finalizada' }">
+    <tr *ngFor="let item of items" [ngClass]="{ 'rowfinalizada': item.estado != 'Pendiente' }">
       <td>{{ item.numero }}</td>
       <td>{{ item.empleado }}</td>
       <td>{{ item.cliente }}</td>

@@ -12,11 +12,11 @@ import { PREFIX_DOMAIN_API } from 'src/environments/environment';
 })
 export class DataService {
 
-  private apiUrl = PREFIX_DOMAIN_API + 'monitor?skip='; // URL de tu servicio REST
+  private apiUrl = PREFIX_DOMAIN_API + 'actividadesPorServiceCall?serviceCallId='; // URL de tu servicio REST
   
   constructor(private http: HttpClient) { }
 
-  getItems(skip: string): Observable<ResponseData> {
-      return this.http.get<ResponseData>(this.apiUrl + skip);
+  getItems(scid: string): Observable<ResponseData> {
+      return this.http.get<ResponseData>(this.apiUrl + scid);
   }
 }

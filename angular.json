@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "monitor-actividades": {
+    "informe-qr": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/monitor-actividades",
+            "outputPath": "dist/informe-qr",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "monitor-actividades:build"
+            "browserTarget": "informe-qr:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "monitor-actividades:build:production"
+              "browserTarget": "informe-qr:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "monitor-actividades:build"
+            "browserTarget": "informe-qr:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "monitor-actividades-e2e": {
+    "informe-qr-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -116,11 +116,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "monitor-actividades:serve"
+            "devServerTarget": "informe-qr:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "monitor-actividades:serve:production"
+              "devServerTarget": "informe-qr:serve:production"
             }
           }
         },
@@ -136,5 +136,5 @@
       }
     }
   },
-  "defaultProject": "monitor-actividades"
+  "defaultProject": "informe-qr"
 }

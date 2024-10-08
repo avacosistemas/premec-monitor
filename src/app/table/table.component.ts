@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { Item } from "../data.model";
+import { Item, ServiceCallActivities } from "../data.model";
 import { DataService } from "../data.service";
 import { interval } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { PREFIX_DOMAIN_API } from "src/environments/environment";
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-table-beto',
@@ -10,31 +14,60 @@ import { interval } from "rxjs";
 })
 export class TableComponent implements OnInit {
 
-  items: Item[] = [];
+  private pdfurl = PREFIX_DOMAIN_API + 'descargarreporte?idActividad='; // URL de tu servicio REST
 
-  skip: string = "";
+  scact: ServiceCallActivities;
+  
+  serviceCallId: string;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit(): void {
-    const source = interval(10000);
-    source.subscribe(x => {
-      this.actualizar();
-    });
-  }
+    this.serviceCallId = this.getParamValueQueryString('serviceCallId');
 
-  actualizar() {
-    this.dataService.getItems(this.skip).subscribe(
+    this.dataService.getItems(this.serviceCallId).subscribe(
       (response) => {
         if (response.status == "OK") {
-          this.items = response.data;
-          this.skip = response.data[0].skip;
+          this.scact = response.data;
         }
       },
       (error) => {
         console.error('Error fetching data: ', error);
       }
     );
+  }
+
+  getParamValueQueryString( paramName ) {
+    const url = window.location.href;
+    let paramValue;
+    if (url.includes('?')) {
+      const httpParams = new HttpParams({ fromString: url.split('?')[1] });
+      paramValue = httpParams.get(paramName);
+    }
+    return paramValue;
+  }
+
+  downloadPDF(actividadId: string) {
+    const url = this.pdfurl + actividadId; // Cambia esto por la URL de tu API
+
+    this.http.get<{ data: string }>(url).subscribe(response => {
+            const archivoBase64 = response.data;
+            const byteString = atob(archivoBase64);
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+
+            for (let i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+            }
+
+            const blob = new Blob([ab], {
+              type: 'application/pdf'
+            });
+
+            FileSaver.saveAs(blob, "informe-" + actividadId + ".pdf");
+    }, error => {
+      console.error('Error al descargar el PDF', error);
+    });
   }
 
 }

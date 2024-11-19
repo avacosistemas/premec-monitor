@@ -1,75 +1,20 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
-<style>
-  .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-  }
-
-.spinner {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
-
-
-<div *ngIf="isLoading" class="overlay">
-  <div class="spinner"></div>
-</div>
-
-<table class="table table-striped">
-    <tr>
-      <td>Servicio {{ serviceCallId }}</td>
-    </tr>
-    <tr>
-      <td>{{ itemCode }}</td>
-    </tr>
-    <tr>
-      <td>{{ internalSerialNum }} - {{ manufacturerSerialNum }}</td>
-    </tr>
-</table>
-
 <table class="table table-striped">
   <thead>
-    <tr align="center">
-      <th align="center">Actividad</th>
-      <th align="center">Fecha</th>
-      <th></th>
+    <tr>
+      <th>Actividad</th>
+      <th>Empleado</th>
+      <th>Cliente</th>
+      <th>Tarea</th>
+      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of actividades">
-      <td align="center">{{ item.activityCode }}</td>
-      <td align="center">{{ item.activityDate }}</td>
-      <td><button style="border: none;" *ngIf="item.imprimeReporte" (click)="downloadPDF(item.activityCode)">
-        <span class="material-symbols-outlined">
-        picture_as_pdf
-        </span></button></td>
+    <tr *ngFor="let item of items" [ngClass]="{ 'rowfinalizada': item.estado != 'Pendiente' }">
+      <td>{{ item.numero }}</td>
+      <td>{{ item.empleado }}</td>
+      <td>{{ item.cliente }}</td>
+      <td>{{ item.tareasARealizar }}</td>
+      <td>{{ item.estado }}</td>
     </tr>
   </tbody>
 </table>

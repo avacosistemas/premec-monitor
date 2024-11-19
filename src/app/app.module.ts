@@ -5,13 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
-import { GenerarQrComponent } from './generar-qr/generar-qr.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent,
-    GenerarQrComponent
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -23,4 +21,4 @@ import { GenerarQrComponent } from './generar-qr/generar-qr.component';
 })
 export class AppModule {
   
-}
+ }

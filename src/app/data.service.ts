@@ -16,7 +16,7 @@ export class DataService {
   
   constructor(private http: HttpClient) { }
 
-  getItems(scid: string): Observable<ResponseData> {
+  getItems(scid: number): Observable<ResponseData> {
       return this.http.get<ResponseData>(this.apiUrl + scid);
   }
 }

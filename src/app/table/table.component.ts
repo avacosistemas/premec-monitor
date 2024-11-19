@@ -16,25 +16,40 @@ export class TableComponent implements OnInit {
 
   private pdfurl = PREFIX_DOMAIN_API + 'descargarreporte?idActividad='; // URL de tu servicio REST
 
-  scact: ServiceCallActivities;
+  serviceCallId: number;
+  itemCode: string;
+  internalSerialNum: string;
+  manufacturerSerialNum: string;
+
+  isLoading = false;
   
-  serviceCallId: string;
+  actividades: any;
 
   constructor(private dataService: DataService, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit(): void {
+    
+    this.isLoading = true;
+
     this.serviceCallId = this.getParamValueQueryString('serviceCallId');
 
     this.dataService.getItems(this.serviceCallId).subscribe(
       (response) => {
         if (response.status == "OK") {
-          this.scact = response.data;
+          this.serviceCallId = response.data.serviceCallID;
+          this.itemCode = response.data.itemCode;
+          this.internalSerialNum = response.data.internalSerialNum;
+          this.manufacturerSerialNum = response.data.manufacturerSerialNum;
+          this.actividades = response.data.actividades;
         }
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching data: ', error);
+        this.isLoading = false;
       }
     );
+    
   }
 
   getParamValueQueryString( paramName ) {
@@ -48,10 +63,13 @@ export class TableComponent implements OnInit {
   }
 
   downloadPDF(actividadId: string) {
+    
+    this.isLoading = true;
+
     const url = this.pdfurl + actividadId; // Cambia esto por la URL de tu API
 
     this.http.get<{ data: string }>(url).subscribe(response => {
-            const archivoBase64 = response.data;
+      const archivoBase64 = response.data;
             const byteString = atob(archivoBase64);
             const ab = new ArrayBuffer(byteString.length);
             const ia = new Uint8Array(ab);
@@ -65,9 +83,12 @@ export class TableComponent implements OnInit {
             });
 
             FileSaver.saveAs(blob, "informe-" + actividadId + ".pdf");
+            this.isLoading = false;
     }, error => {
       console.error('Error al descargar el PDF', error);
+      this.isLoading = false;
     });
+
   }
 
 }
